@@ -22,7 +22,6 @@ def api_detail_blog_view(request, id):
 # Update
 @api_view(['PUT'])
 def api_update_blog_view(request, id):
-
     try: 
         blog_post = BlogPost.objects.get(id=id)
     except BlogPost.DoesNotExist:
@@ -59,3 +58,18 @@ def api_delete_blog_view(request, id):
                 'failure' :  'delete failed'
             }
         return Response(data=data)
+
+# create 
+@api_view(['POST'])
+def api_create_blog_view(request):
+    
+    user = User.objects.get(id=1)
+
+    blog_post = BlogPost(author=user)
+
+    if request.method == "POST":
+        serializer = BlogPostSerializer(blog_post, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
