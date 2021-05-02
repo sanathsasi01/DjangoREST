@@ -21,5 +21,6 @@ urlpatterns = [
     path('', include('blog.urls')),
 
     # REST FRAMEWORK
-    path('blog/api/', include('blog.api.urls'))
+    path('blog/api/', include('blog.api.urls')),
+    path('accounts/api/', include('accounts.api.urls')),
 ]

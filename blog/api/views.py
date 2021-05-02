@@ -6,9 +6,10 @@ from django.contrib.auth.models import User
 from blog.models import BlogPost
 from blog.api.serializers import BlogPostSerializer
 
+
+# read
 @api_view(['GET', ])
 def api_detail_blog_view(request, id):
-
     try: 
         blog_post = BlogPost.objects.get(id=id)
     except BlogPost.DoesNotExist:
