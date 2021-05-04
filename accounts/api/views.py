@@ -4,6 +4,7 @@ from rest_framework.response import Response
 
 
 from .serializer import *
+from rest_framework.authtoken.models import Token
 
 
 
@@ -14,10 +15,12 @@ def registration_api(request):
 
     if serializer.is_valid():
         user = serializer.save()
+        token = Token.objects.get(user=user).key
         context = {
             'response' : 'successfully created account',
             'email' : user.email,
-            'username' : user.email
+            'username' : user.email,
+            'token' : token
         }
 
     else:
